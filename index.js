@@ -10,8 +10,9 @@ app.use(express.static(path.join(__dirname, "/views")));
 app.use(
 	(addActiveTime = (req, res, next) => {
 		let requestAt = new Date().getHours();
+		let day = new Date().getDay();
 
-		if (requestAt <= 9 || requestAt >= 17) {
+		if (requestAt <= 9 || (requestAt >= 17 && day <= 1) || day >= 5) {
 			res.render("NoAcces");
 		} else {
 			next();
